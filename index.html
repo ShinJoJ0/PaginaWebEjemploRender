@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Página sencilla - Deploy en Render</title>
+  <meta name="description" content="Página de ejemplo simple para desplegar en Render" />
+  <style>
+    /* Reset muy básico */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:#f6f8fb;color:#122;}
+
+    /* Contenedor */
+    .container{max-width:1000px;margin:32px auto;padding:24px;background:#fff;border-radius:12px;box-shadow:0 6px 30px rgba(16,24,40,0.08)}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,#60a5fa,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    nav a{margin-left:14px;text-decoration:none;color:#334155;font-weight:600}
+
+    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:24px;align-items:center}
+    .hero h1{font-size:28px;margin-bottom:12px}
+    .hero p{color:#475569;line-height:1.5}
+
+    .card{background:#f8fafc;padding:18px;border-radius:10px}
+
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:18px}
+    .feature{background:#fff;border:1px solid #eef2f7;padding:14px;border-radius:8px}
+    .feature h3{margin-bottom:8px;font-size:16px}
+    .cta{display:inline-block;margin-top:12px;padding:10px 14px;border-radius:8px;background:#4f46e5;color:#fff;text-decoration:none}
+
+    footer{margin-top:28px;color:#64748b;font-size:14px;text-align:center}
+
+    /* Form */
+    form{display:flex;flex-direction:column;gap:8px}
+    input,textarea{padding:10px;border-radius:8px;border:1px solid #e6eef7}
+    button[type=submit]{padding:10px;border-radius:8px;border:0;background:#10b981;color:#fff;font-weight:700}
+
+    /* Responsivo */
+    @media (max-width:880px){
+      .hero{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo">RU</div>
+        <div>
+          <div style="font-weight:800">Rice Up — Demo</div>
+          <div style="font-size:12px;color:#64748b">Página de ejemplo para despliegue</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#features">Características</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Una página simple lista para desplegar en Render 🚀</h1>
+          <p>Este pequeño sitio contiene HTML, CSS y JavaScript mínimo. Ideal como punto de partida para publicar un sitio estático en servicios como Render, Netlify o Vercel.</p>
+
+          <div class="features" id="features">
+            <div class="feature">
+              <h3>Ligera</h3>
+              <p>Archivos estáticos, rápido y fácil de versionar con Git.</p>
+            </div>
+            <div class="feature">
+              <h3>Responsiva</h3>
+              <p>Se adapta a móviles y escritorio sin configuraciones extras.</p>
+            </div>
+            <div class="feature">
+              <h3>Interactividad</h3>
+              <p>Formulario de contacto con validación simple y notificación.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="card">
+          <h2>Contacto</h2>
+          <form id="contactForm">
+            <input type="text" id="name" placeholder="Tu nombre" required />
+            <input type="email" id="email" placeholder="tu@email.com" required />
+            <textarea id="message" rows="4" placeholder="Mensaje"></textarea>
+            <button type="submit">Enviar</button>
+            <div id="status" style="margin-top:8px;font-size:13px;color:#064e3b;display:none"></div>
+          </form>
+        </aside>
+      </section>
+
+      <section style="margin-top:18px">
+        <h2>Uso</h2>
+        <p style="color:#475569">Puedes editar este archivo y subirlo a un repositorio Git. Luego conecta el repo con Render (Static Site) para desplegar en segundos.</p>
+        <a class="cta" href="#contact">Enviar mensaje</a>
+      </section>
+    </main>
+
+    <footer>
+      <small>Hecho con ❤️ — Ejemplo para despliegue en Render</small>
+    </footer>
+  </div>
+
+  <script>
+    // Interactividad mínima: validación y simulación de envío
+    const form = document.getElementById('contactForm');
+    const status = document.getElementById('status');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Validación simple
+      if(!name || !email){
+        status.style.display = 'block';
+        status.style.color = '#b91c1c';
+        status.textContent = 'Por favor completa nombre y correo.';
+        return;
+      }
+
+      // Simular envío (aquí podrías llamar a un endpoint)
+      status.style.display = 'block';
+      status.style.color = '#064e3b';
+      status.textContent = 'Enviando...';
+
+      setTimeout(()=>{
+        status.textContent = '¡Mensaje enviado! (simulado)';
+        form.reset();
+      }, 900);
+    });
+  </script>
+
+  <!--
+    Instrucciones rápidas para desplegar en Render:
+    1) Crea un repositorio en GitHub y sube este archivo (por ejemplo index.html).
+    2) En render.com crea un nuevo "Static Site" y conecta el repositorio (o usa deploy from repo).
+    3) Si el archivo se llama index.html no necesitas comando de build; Render servirá el contenido.
+    4) Opcional: agrega un archivo README y un `static.json` o `render.yaml` si necesitas configuración extra.
+  -->
+</body>
+</html>
